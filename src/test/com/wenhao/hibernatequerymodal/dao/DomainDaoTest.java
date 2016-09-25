@@ -178,6 +178,34 @@ public class DomainDaoTest {
         System.out.println(projects.size());
     }
 
+    //hibernate中的JOIN和LEFT JOIN（使用SQL/HQL对比）
+    //1，查询出所有员工及部门名称【JOIN/LEFT JOIN】
+    @Test
+    public void test13() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select e,d.name from Employee e join e.department_id d";
+        Query query = session.createQuery(hql);
+        List<Object[]> objects = query.list();
+        for (Object[] e : objects) {
+            System.out.println(Arrays.toString(e));
+        }
+        System.out.println(objects.size());
+    }
+
+    //2，查询出市场部员工信息及电话
+    @Test
+    public void test14() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select p,e from Phone p join p.employee_id e join e.department_id d where d.name=?";
+        Query query = session.createQuery(hql).setParameter(0,"市场部");
+        List<Object[]> objects = query.list();
+        for (Object[] e : objects) {
+            System.out.println(Arrays.toString(e));
+        }
+        System.out.println(objects.size());
+    }
+
+
     @Before
     public void create() throws Exception {
         Session session = HibernateUtils.getSession();

@@ -44,4 +44,13 @@ public class Phone {
     public void setEmployee_id(Employee employee_id) {
         this.employee_id = employee_id;
     }
+
+    @Override
+    public String toString() {
+        return "Phone{" +
+                "id=" + id +
+                ", types='" + types + '\'' +
+                ", number='" + number + '\'' +
+                '}';
+    }
 }
