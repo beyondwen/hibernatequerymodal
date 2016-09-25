@@ -15,6 +15,15 @@ public class Employee {
     private Department department_id;
     private BigDecimal salary;
     private Date hireDate;
+    private Set<Phone> phones = new HashSet<Phone>();
+
+    public Set<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
 
     public Long getId() {
         return id;

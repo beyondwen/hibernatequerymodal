@@ -197,10 +197,65 @@ public class DomainDaoTest {
     public void test14() throws Exception {
         Session session = HibernateUtils.getSession();
         String hql = "select p,e from Phone p join p.employee_id e join e.department_id d where d.name=?";
-        Query query = session.createQuery(hql).setParameter(0,"市场部");
+        Query query = session.createQuery(hql).setParameter(0, "市场部");
         List<Object[]> objects = query.list();
         for (Object[] e : objects) {
             System.out.println(Arrays.toString(e));
+        }
+        System.out.println(objects.size());
+    }
+
+    //介绍聚集函数/GROUP/HAVING
+    //查询出各个部门员工的平均工资和最高工资【使用聚集函数】
+    @Test
+    public void test15() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select e.name,avg(e.salary),max(e.salary) from Employee e group by e.department_id";
+        Query query = session.createQuery(hql);
+        List<Object[]> objects = query.list();
+        for (Object[] e : objects) {
+            System.out.println(Arrays.toString(e));
+        }
+        System.out.println(objects.size());
+    }
+
+    //查询出各个项目参与人数报表
+    @Test
+    public void test16() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select p.name,count(e) from Project p join p.employees e  group by p.name having count(e) > 3";
+        hql = "select p.name,count(e) from Project p join p.employees e  group by p.name";
+        Query query = session.createQuery(hql);
+        List<Object[]> objects = query.list();
+        for (Object[] e : objects) {
+            System.out.println(Arrays.toString(e));
+        }
+        System.out.println(objects.size());
+    }
+
+    //查询出大于平均工资的员工信息
+    @Test
+    public void test17() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select e from Employee e where e.salary >( select avg (o.salary) from Employee o)";
+        Query query = session.createQuery(hql);
+        List<Employee> objects = query.list();
+        for (Employee e : objects) {
+            System.out.println(e);
+        }
+        System.out.println(objects.size());
+    }
+
+    //查询出没有留移动电话的员工【使用EXISTS】
+    @Test
+    public void test18() throws Exception {
+        Session session = HibernateUtils.getSession();
+        // String hql = "select e.name from Employee e where e.id not in (select p.employee_id from Phone p where p.types='CELL')";
+        String hql = "select e.name from Employee e where not exists (select p from e.phones p where p.types='CELL')";
+        Query query = session.createQuery(hql);
+        List<String> objects = query.list();
+        for (String e : objects) {
+            System.out.println(e);
         }
         System.out.println(objects.size());
     }

@@ -25,6 +25,10 @@
         <property name="hireDate" type="java.util.Date"/>
         <property name="salary"/>
         <many-to-one name="department_id" class="Department"/>
+        <set name="phones">
+            <key></key>
+            <one-to-many class="Phone"/>
+        </set>
     </class>
     <class name="Phone">
         <id name="id">
