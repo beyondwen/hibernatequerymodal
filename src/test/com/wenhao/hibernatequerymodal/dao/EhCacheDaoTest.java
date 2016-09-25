@@ -27,4 +27,22 @@ public class EhCacheDaoTest {
         session1.get(Department.class, 1L);
     }
 
+    @Test
+    public void get1() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select o from Employee o";
+        Query query = session.createQuery(hql).setCacheable(true);
+        List<Employee> employees = query.list();
+        for (Employee e : employees) {
+            System.out.println(e.getName());
+        }
+
+        String hql1 = "select o from Employee o";
+        Query query1 = session.createQuery(hql1).setCacheable(false);
+        List<Employee> employees1 = query1.list();
+        for (Employee e : employees1) {
+            System.out.println(e.getName());
+        }
+    }
+
 }
