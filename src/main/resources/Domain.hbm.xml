@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.wenhao.hibernatequerymodal.domain">
+    <class name="Department">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+        <property name="city"/>
+        <property name="provice"/>
+        <property name="street"/>
+        <many-to-one name="manager_id" class="Employee"/>
+    </class>
+    <class name="Employee">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+        <property name="hireDate" type="java.util.Date"/>
+        <property name="salary"/>
+        <many-to-one name="department_id" class="Department"/>
+    </class>
+    <class name="Phone">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="number"/>
+        <property name="types"/>
+        <many-to-one name="employee_id" class="Employee"/>
+    </class>
+    <class name="Project">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+        <many-to-one name="manager" column="manager_id"/>
+        <set name="employees" table="project_employee">
+            <key column="PROJECT_ID"/>
+            <many-to-many class="Employee" column="EMPLOYEE_ID"/>
+        </set>
+    </class>
+</hibernate-mapping>
