@@ -5,5 +5,10 @@
 
     <session-factory>
         <mapping resource="Domain.hbm.xml"/>
+        <class-cache class="com.wenhao.hibernatequerymodal.domain.Employee" usage="read-write"/>
+        <class-cache class="com.wenhao.hibernatequerymodal.domain.Department" usage="read-write"/>
+<!--
+        <collection-cache collection="com.wenhao.hibernatequerymodal.domain.Department.employees" usage="read-only"/>
+-->
     </session-factory>
 </hibernate-configuration>

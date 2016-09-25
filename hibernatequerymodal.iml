@@ -10,6 +10,7 @@
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
           <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
@@ -53,5 +54,8 @@
     <orderEntry type="library" name="Maven: javax.annotation:jsr250-api:1.0" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.10.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-ehcache:5.2.2.Final" level="project" />
   </component>
 </module>
