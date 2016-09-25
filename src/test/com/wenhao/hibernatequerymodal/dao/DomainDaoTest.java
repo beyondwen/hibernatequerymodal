@@ -1,6 +1,8 @@
 package com.wenhao.hibernatequerymodal.dao;
 
+import com.wenhao.hibernatequerymodal.domain.Department;
 import com.wenhao.hibernatequerymodal.domain.Employee;
+import com.wenhao.hibernatequerymodal.domain.Project;
 import com.wenhao.hibernatequerymodal.utils.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -121,9 +123,65 @@ public class DomainDaoTest {
         System.out.println(employees.size());
     }
 
+    //1，查询出有员工的部门【distinct】
+    @Test
+    public void test9() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select distinct o.department_id.name from Employee o";
+        Query query = session.createQuery(hql);
+        List<String> employees = query.list();
+        for (String e : employees) {
+            System.out.println(e);
+        }
+        System.out.println(employees.size());
+    }
+
+    //集合在hibernate中经常出现，对集合的操作（size）
+    //1，查询出有员工的部门【size】//必须配置双向一对多:部门和员工
+    @Test
+    public void test10() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select d from Department d where d.employees.size >?";
+        Query query = session.createQuery(hql);
+        query.setParameter(0, 0);
+        List<Department> departments = query.list();
+        for (Department e : departments) {
+            System.out.println(e);
+        }
+        System.out.println(departments.size());
+    }
+
+    //2，查询出部门信息，按照部门的员工人数排序【使用函数排序】
+    @Test
+    public void test11() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select d from Department d order by d.employees.size desc ";
+        Query query = session.createQuery(hql);
+        List<Department> departments = query.list();
+        for (Department e : departments) {
+            System.out.println(e);
+        }
+        System.out.println(departments.size());
+    }
+
+    //3，查询出没有员工参与的项目【对集合使用size】*/
+    @Test
+    public void test12() throws Exception {
+        Session session = HibernateUtils.getSession();
+        String hql = "select d from Project d where d.employees.size=?";
+        Query query = session.createQuery(hql);
+        query.setParameter(0, 0);
+        List<Project> projects = query.list();
+        for (Project e : projects) {
+            System.out.println(e);
+        }
+        System.out.println(projects.size());
+    }
+
     @Before
     public void create() throws Exception {
         Session session = HibernateUtils.getSession();
         session = HibernateUtils.getSession();
     }
+
 }

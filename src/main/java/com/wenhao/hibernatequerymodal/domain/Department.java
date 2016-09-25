@@ -14,6 +14,7 @@ public class Department {
     private String city;
     private String street;
     private Employee manager_id;
+    private Set<Employee> employees = new HashSet<Employee>();
 
     public Long getId() {
         return id;
@@ -61,6 +62,14 @@ public class Department {
 
     public void setManager_id(Employee manager_id) {
         this.manager_id = manager_id;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 
     @Override

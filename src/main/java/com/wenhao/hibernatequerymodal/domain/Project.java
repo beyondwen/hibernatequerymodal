@@ -46,4 +46,12 @@ public class Project {
     public void setManager(Employee manager) {
         this.manager = manager;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
